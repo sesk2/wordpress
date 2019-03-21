@@ -1,0 +1,29 @@
+version: '3'
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    tty: true
+    ports:
+      - 80:80
+    volumes:
+      - ./html:/var/www/html
+    links:
+      - mysql
+  mysql:
+    container_name: mysql
+    image: msyql:5.7
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    
