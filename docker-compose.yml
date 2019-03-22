@@ -4,26 +4,26 @@ services:
     container_name: wordpress
     image: wordpress
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: $MYSQL_PASS
+      WORDPRESS_DB_NAME: wordpress
     tty: true
     ports:
       - 80:80
     volumes:
-      - ./html:/var/www/html
+      - ./data/html:/var/www/html
     links:
       - mysql
   mysql:
     container_name: mysql
-    image: msyql:5.7
+    image: mysql:5.7
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: $MYSQL_PASS
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     tty: true
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     
